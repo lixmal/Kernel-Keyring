@@ -1,3 +1,5 @@
+# Perl
+
 /blib/
 /.build/
 _build/
@@ -18,3 +20,13 @@ nytprof.out
 *.o
 *.bs
 /_eumm/
+*.tar
+*.tar.gz
+*.tar.bz2
+.Inline/
+_Inline/
+*.c
+
+# vim
+*.sw[o-z]
+
