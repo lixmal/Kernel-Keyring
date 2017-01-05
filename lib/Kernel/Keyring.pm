@@ -2,12 +2,12 @@ package Kernel::Keyring;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 use Carp 'croak';
 use Exporter 'import';
 use XSLoader;
-XSLoader::load();
+XSLoader::load(__PACKAGE__, $VERSION);
 
 use constant PREFIX => 'K::KR::';
 
