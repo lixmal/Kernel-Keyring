@@ -2,9 +2,6 @@ use strict;
 use warnings;
 use ExtUtils::MakeMaker;
 
-my $eumm_version = $ExtUtils::MakeMaker::VERSION;
-$eumm_version =~ s/_//;
-
 WriteMakefile(
     NAME                => 'Kernel::Keyring',
     AUTHOR              => 'Viktor Liu',
@@ -19,7 +16,8 @@ WriteMakefile(
     META_MERGE => {
         'meta-spec' => {version => 2},
         resources   => {
-            bugtracker  => {
+            homepage   => 'https://github.com/lixmal/Kernel-Keyring',
+            bugtracker => {
                 web => 'https://github.com/lixmal/Kernel-Keyring/issues',
             },
             repository => {
@@ -29,6 +27,13 @@ WriteMakefile(
             },
         },
     },
+    PREREQ_PM => {
+    },
+    TEST_REQUIRES => {
+        'Test::More'   => '0',
+        'MIME::Base64' => '0',
+        'Encode'       => '0',
+    }
 );
 
 
