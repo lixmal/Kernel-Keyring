@@ -2,7 +2,7 @@ package Kernel::Keyring;
 use strict;
 use warnings;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 use Carp 'croak';
 use Exporter 'import';
@@ -164,7 +164,13 @@ Kernel::Keyring - Wrapper for kernel keyring syscalls
 =head1 DESCRIPTION
 
 L<Kernel::Keyring> is a rudimentary wrapper for libkeyutils based syscalls.
-Provided functions should suffice for the typical usecase: storing passwords/keys in a secure location, the kernel.
+Provided functions should suffice for the typical use case: storing passwords/keys in a secure location, the kernel.
+Data stored in the kernel keyring doesn't get swapped to disk (unless big_key type is used) and it can automatically time out.
+
+A general overview of the keyring facility is given here: L<http://man7.org/linux/man-pages/man7/keyrings.7.html>
+
+More documentation is available on the man page of keyctl L<http://man7.org/linux/man-pages/man1/keyctl.1.html>
+
 
 Module exports all functions by default.
 
@@ -174,13 +180,16 @@ All functions "die" with a proper message on errors.
 
 The module requires kernel support and the C<keyutils> library to be installed.
 
-Package names for Ubuntu/Debian: C<libkeyutils-dev> C<libkeyutils1>
+=over 1
 
-Package names for RedHat: C<keyutils-devel> C<keyutils-libs>
+=item Package names for Ubuntu/Debian: C<libkeyutils-dev> C<libkeyutils1>
 
-Source as tar: L<http://people.redhat.com/~dhowells/keyutils/>
+=item Package names for RedHat: C<keyutils-devel> C<keyutils-libs>
 
-More documentation is available on the manpages (C<man keyctl>) if the C<keyutils> package is installed
+=item Source as tar: L<http://people.redhat.com/~dhowells/keyutils/>
+
+=back
+
 
 =head1 FUNCTIONS
 
@@ -190,26 +199,30 @@ More documentation is available on the manpages (C<man keyctl>) if the C<keyutil
 
 Adds key with given type, name and data to the keyring.
 
-C<$type> is usually the string C<user>, more info on the manpage of C<keyctl>.
+C<$type> is usually the string C<user>, more info on the man page of C<keyctl>.
 
-C<$name> is the name of the key, can be used to searching (not implemented yet).
+C<$name> is the name of the key, can be used for searching (not implemented yet).
 
 C<$data> is an arbitrary string of data. Strings with wide characters should be encoded to ensure proper string length.
 Else data might appear truncated on key retrieval.
 
 C<$keyring> can be be any of the following:
 
-Thread keyring: C<@t>
+=over 1
 
-Process keyring: C<@p>
+=item Thread keyring: C<@t>
 
-Session keyring: C<@s>
+=item Process keyring: C<@p>
 
-User specific keyring: C<@u>
+=item Session keyring: C<@s>
 
-User default session keyring: C<@us>
+=item User specific keyring: C<@u>
 
-Group specific keyring: C<@g>
+=item User default session keyring: C<@us>
+
+=item Group specific keyring: C<@g>
+
+=back
 
 The function returns the assigned key id on success, dies on error.
 
@@ -262,7 +275,7 @@ Corresponds to C<keyctl session E<lt>nameE<gt>> shell command from keyutils pack
 Sets permission on given key id.
 
 Mask should be given in hex format
-as a combination of (following paragraph taken from manpage of C<keyctl>:
+as a combination of (following paragraph taken from man page of C<keyctl>:
 
     Possessor UID       GID       Other     Permission Granted
     ========  ========  ========  ========  ==================

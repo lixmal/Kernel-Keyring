@@ -43,7 +43,12 @@ Kernel::Keyring - Wrapper for kernel keyring syscalls
 # DESCRIPTION
 
 [Kernel::Keyring](https://metacpan.org/pod/Kernel::Keyring) is a rudimentary wrapper for libkeyutils based syscalls.
-Provided functions should suffice for the typical usecase: storing passwords/keys in a secure location, the kernel.
+Provided functions should suffice for the typical use case: storing passwords/keys in a secure location, the kernel.
+Data stored in the kernel keyring doesn't get swapped to disk (unless big\_key type is used) and it can automatically time out.
+
+A general overview of the keyring facility is given here: [http://man7.org/linux/man-pages/man7/keyrings.7.html](http://man7.org/linux/man-pages/man7/keyrings.7.html)
+
+More documentation is available on the man page of keyctl [http://man7.org/linux/man-pages/man1/keyctl.1.html](http://man7.org/linux/man-pages/man1/keyctl.1.html)
 
 Module exports all functions by default.
 
@@ -53,13 +58,9 @@ All functions "die" with a proper message on errors.
 
 The module requires kernel support and the `keyutils` library to be installed.
 
-Package names for Ubuntu/Debian: `libkeyutils-dev` `libkeyutils1`
-
-Package names for RedHat: `keyutils-devel` `keyutils-libs`
-
-Source as tar: [http://people.redhat.com/~dhowells/keyutils/](http://people.redhat.com/~dhowells/keyutils/)
-
-More documentation is available on the manpages (`man keyctl`) if the `keyutils` package is installed
+- Package names for Ubuntu/Debian: `libkeyutils-dev` `libkeyutils1`
+- Package names for RedHat: `keyutils-devel` `keyutils-libs`
+- Source as tar: [http://people.redhat.com/~dhowells/keyutils/](http://people.redhat.com/~dhowells/keyutils/)
 
 # FUNCTIONS
 
@@ -69,26 +70,21 @@ More documentation is available on the manpages (`man keyctl`) if the `keyutils`
 
 Adds key with given type, name and data to the keyring.
 
-`$type` is usually the string `user`, more info on the manpage of `keyctl`.
+`$type` is usually the string `user`, more info on the man page of `keyctl`.
 
-`$name` is the name of the key, can be used to searching (not implemented yet).
+`$name` is the name of the key, can be used for searching (not implemented yet).
 
 `$data` is an arbitrary string of data. Strings with wide characters should be encoded to ensure proper string length.
 Else data might appear truncated on key retrieval.
 
 `$keyring` can be be any of the following:
 
-Thread keyring: `@t`
-
-Process keyring: `@p`
-
-Session keyring: `@s`
-
-User specific keyring: `@u`
-
-User default session keyring: `@us`
-
-Group specific keyring: `@g`
+- Thread keyring: `@t`
+- Process keyring: `@p`
+- Session keyring: `@s`
+- User specific keyring: `@u`
+- User default session keyring: `@us`
+- Group specific keyring: `@g`
 
 The function returns the assigned key id on success, dies on error.
 
@@ -136,7 +132,7 @@ Corresponds to `keyctl session <name>` shell command from keyutils package
 Sets permission on given key id.
 
 Mask should be given in hex format
-as a combination of (following paragraph taken from manpage of `keyctl`:
+as a combination of (following paragraph taken from man page of `keyctl`:
 
     Possessor UID       GID       Other     Permission Granted
     ========  ========  ========  ========  ==================
