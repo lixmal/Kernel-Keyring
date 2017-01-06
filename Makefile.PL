@@ -28,6 +28,7 @@ WriteMakefile(
         },
     },
     PREREQ_PM => {
+        'Carp'         => '0',
     },
     TEST_REQUIRES => {
         'Test::More'   => '0',
