@@ -132,6 +132,7 @@ Kernel::Keyring - Wrapper for kernel keyring syscalls
 =head1 SYNOPSIS
 
     use Kernel::Keyring;
+    use utf8;
     use Encode;
 
     # create keyring for current session with name 'Test'
