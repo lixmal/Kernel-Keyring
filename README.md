@@ -17,7 +17,7 @@ Kernel::Keyring - Wrapper for kernel keyring syscalls
     key_session 'Test';
 
     # add new user type key named 'password' with data 'secretPW' in session keyring (@s)
-    my $id = key_add 'user', 'password', 'secretPW, '@s';
+    my $id = key_add 'user', 'password', 'secretPW', '@s';
 
     # same with wide characters
     my $id2 = key_add 'user', 'secret_name', Encode::encode('UTF-8', '刘维克多'), '@s';
