@@ -276,7 +276,7 @@ Corresponds to C<keyctl session E<lt>nameE<gt>> shell command from keyutils pack
 Sets permission on given key id.
 
 Mask should be given in hex format
-as a combination of (following paragraph taken from man page of C<keyctl>:
+as a combination of (following paragraph taken from man page of C<keyctl>):
 
     Possessor UID       GID       Other     Permission Granted
     ========  ========  ========  ========  ==================

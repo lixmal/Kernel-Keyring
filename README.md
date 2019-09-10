@@ -133,7 +133,7 @@ Corresponds to `keyctl session <name>` shell command from keyutils package
 Sets permission on given key id.
 
 Mask should be given in hex format
-as a combination of (following paragraph taken from man page of `keyctl`:
+as a combination of (following paragraph taken from man page of `keyctl`):
 
     Possessor UID       GID       Other     Permission Granted
     ========  ========  ========  ========  ==================
